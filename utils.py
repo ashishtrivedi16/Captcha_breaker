@@ -3,13 +3,7 @@ import imutils
 
 
 def resize_to_fit(self, image, width, height):
-	"""
-	A helper function to resize an image to fit within a given size
-	:param image: image to resize
-	:param width: desired width in pixels
-	:param height: desired height in pixels
-	:return: the resized image
-	"""
+	
 	(h, w) = image.shape[:2]
 
 	if w > h:

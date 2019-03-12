@@ -1,5 +1,6 @@
 import os, glob
 import cv2
+import pickle
 from imutils import paths
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelBinarizer
@@ -84,6 +85,9 @@ class Data_loader:
 
 			lb = LabelBinarizer().fit(labels)
 			labels = lb.transform(labels)
+			
+			with open(MODEL_LABELS_FILENAME, "rb") as f:
+				lb = pickle.load(f)
 			
 			x_train, x_test, y_train, y_test = train_test_split(data, labels, test_size = 0.25, shuffle = True)
 			

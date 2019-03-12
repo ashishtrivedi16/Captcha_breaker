@@ -11,13 +11,14 @@ import matplotlib.pyplot as plt
 
 class Model:
 	
-	def __init__(self, lr, batch_size, epochs, img_width, img_height, MODEL_FILENAME):
+	def __init__(self, lr, batch_size, epochs, img_width, img_height, MODEL_FILENAME, MODEL_LABELS_FILENAME):
 		self.lr = lr
 		self.batch_size = batch_size
 		self.epochs = epochs
 		self.img_width = img_width
 		self.img_height = img_height
 		self.MODEL_FILENAME = MODEL_FILENAME
+		self.MODEL_LABELS_FILENAME = MODEL_LABELS_FILENAME
 		
 	def model(self):
 		
@@ -65,6 +66,10 @@ class Model:
 		plt.xlabel('epoch')
 		plt.legend(['train', 'test'], loc='upper left')
 		
+	def load_model(self):
+		model = load_model(self.MODEL_FILENAME)
+		return model
+		
 		
 	def predict_model(self, model, image_list):
 		for image_file in image_list:
@@ -108,6 +113,9 @@ class Model:
 
 				prediction = model.predict(letter_image)
 
+				with open(MODEL_LABELS_FILENAME, "rb") as f:
+					lb = pickle.load(f)
+				
 				letter = lb.inverse_transform(prediction)[0]
 				predictions.append(letter)
 
